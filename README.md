@@ -6,7 +6,7 @@ You see, unlike other nuke scripts, this nuke script contains some commands that
 
 This way, the Stealth Nuker acts like a trojan horse rather than a typical piece of 'malicious' script; it disguises itself to be apart of the good guys.
 
-
+---
 How to install and use the Stealth Nuker:
 -
 **Want to watch a video tutorial? See this video: https://youtu.be/R5eqlvK_L4I**
@@ -51,11 +51,12 @@ How to install and use the Stealth Nuker:
 38. Reopen the **pgAdmin 4**, as it will need to be open for the bot to work locally.
 39. Once the **pgAdmin 4** is open in the background, run the `run.bat` file to start the bot.
 
+---
 Remember, whenever you wish to run the bot, you must have the **pgAdmin 4** open in the background!
 
 **You can view the Stealth Bot wiki here for more information: https://www.github.com/Catterall/Stealth-Nuker/wiki**
 
-
+---
 Features:
 -
 **The Stealth Nuker for discord has many features, in the form of its various *cogs*:**
@@ -85,3 +86,6 @@ Features:
 - **nuke:** Deletes all channels, deletes all roles, then bans all members on a server.
 
 ### You can view the code and usage of each command here: https://github.com/Catterall/Stealth-Nuker/wiki/Commands
+
+---
+# Remember to star the project if you found it useful!
