@@ -48,20 +48,23 @@ async def create_db_pool():
 @bot.command()
 async def load(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
-    await ctx.send(f'{extension} has been loaded.')
+    embed=discord.Embed(title="Extension loaded", description=f"{extension} has been loaded.", color=discord.Colour.green())
+    await ctx.send(embed=embed)
 
 
 @bot.command()
 async def unload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
-    await ctx.send(f'{extension} has been unloaded.')
+    embed=discord.Embed(title="Extension unloaded", description=f"{extension} has been unloaded.", color=discord.Colour.green())
+    await ctx.send(embed=embed)
 
 
 @bot.command()
 async def reload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
-    await ctx.send(f'{extension} has been reloaded.')
+    embed=discord.Embed(title="Extension reloaded", description=f"{extension} has been reloaded.", color=discord.Colour.green())
+    await ctx.send(embed=embed)
 
 
 # On ready.
@@ -75,11 +78,14 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        await ctx.send('**Permission denied.**')
+        embed=discord.Embed(title="Error", description=f"**Permission denied.**", color=discord.Colour.red())
+        await ctx.send(embed=embed)
     if isinstance(error, commands.NotOwner):
-        await ctx.send('**You must be an owner to use this command.**')
+        embed=discord.Embed(title="Error", description=f"**You must be the owner to use this command.**", color=discord.Colour.red())
+        await ctx.send(embed=embed)
     if isinstance(error, commands.CheckFailure):
-        await ctx.send('**Access denied.**')
+        embed=discord.Embed(title="Error", description=f"**Access denied.**", color=discord.Colour.red())
+        await ctx.send(embed=embed)
     else:
         print(error)
 
@@ -88,7 +94,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def help(ctx):
     author = ctx.message.author
-    embed = discord.Embed(colour=discord.Color.blue())
+    embed = discord.Embed(colour=discord.Color.gold())
 
     # Embed creation.    
     embed.set_author(name=f"Here's a list of my commands!")
@@ -97,6 +103,8 @@ async def help(ctx):
     embed.add_field(name=f"{data.get('prefix')}kick <member> [reason]", value="Kicks a member from the server.", inline=False)
     embed.add_field(name=f"{data.get('prefix')}ban <member> [reason]", value="Bans a member from the server.", inline=False)
     embed.add_field(name=f"{data.get('prefix')}unban <member>", value="Unbans a member from the server.", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}mute <member> [reason]", value="Mutes a member on the server.", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}unmute <member>", value="Unmutes a member on the server.", inline=False)
     embed.add_field(name="**Anti-Raid:**", value="My anti-raid commands are:", inline=False)
     embed.add_field(name=f"{data.get('prefix')}db_add_member <member>", value="Adds a member to my raider database.", inline=False)
     embed.add_field(name=f"{data.get('prefix')}db_del_member <member>", value="Removes a member from my raider database.", inline=False)
@@ -104,6 +112,7 @@ async def help(ctx):
     embed.add_field(name=f"{data.get('prefix')}unlock", value="Unlocks current text channel after a raid.", inline=False)
     embed.add_field(name="**Levelling:**", value="My levelling commands are:", inline=False)
     embed.add_field(name=f"{data.get('prefix')}level", value="Shows your current level and XP.", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}dailyxp", value="Gives you your daily XP.", inline=False)
     embed.add_field(name="**Status:**", value="My status commands are:", inline=False)
     embed.add_field(name=f"{data.get('prefix')}latency", value="Shows you my latency in milliseconds (ms).", inline=False)
 

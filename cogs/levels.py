@@ -64,7 +64,7 @@ class Levels(commands.Cog):
         if not user:
             await ctx.send("This User did not achieved any level yet.")
         else:
-            lvl = discord.Embed(colour=member.color, timestamp=ctx.message.created_at)
+            lvl = discord.Embed(colour=discord.Colour.blue(), timestamp=ctx.message.created_at)
             lvl.set_author(name=f"Level - {member}", icon_url=self.bot.user.avatar_url)
             lvl.set_footer(text=f"Called by: {ctx.author}", icon_url=ctx.author.avatar_url)
             lvl.add_field(name="Level", value=user[0]['lvl'])
@@ -76,14 +76,15 @@ class Levels(commands.Cog):
     @commands.command()
     @commands.guild_only()
     @commands.cooldown(1, 86400, commands.BucketType.user)
-    async def daily(self, ctx, member: discord.Member = None):
+    async def dailyxp(self, ctx, member: discord.Member = None):
         await ctx.message.delete()
         member = ctx.author if not member else member
         author_id = str(member.id)
         guild_id = str(member.guild.id)
         user = await self.bot.pg_con.fetchrow("SELECT * FROM users WHERE user_id = $1 AND guild_id = $2", author_id, guild_id)
         await self.bot.pg_con.execute("UPDATE users SET xp = $1 WHERE user_id = $2 AND guild_id = $3", user['xp'] + 80, author_id, guild_id)
-        await ctx.send("You recieved your daily 80XP")
+        embed=discord.Embed(title="Daily XP", description=f"You've recieved your daily 80 XP!", color=discord.Colour.blue())
+        await ctx.send(embed=embed)
 
 
 def setup(bot):

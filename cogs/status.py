@@ -5,18 +5,19 @@ from discord.ext import commands
 
 
 class Status(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
     
 
     # Display latency (Trustworhy command = Stealth).
     @commands.command()
     async def latency(self, ctx):
-        await ctx.send(f'Latency: {round(self.client.latency*1000)}ms.')
+        embed=discord.Embed(title="Latency", description=f'Latency: {round(self.bot.latency*1000)}ms.', color=discord.Colour.blue())
+        await ctx.send(embed=embed)
 
 
-def setup(client):
-    client.add_cog(Status(client))
+def setup(bot):
+    bot.add_cog(Status(bot))
 
 
 # Stealth bot scripted created by K. Catterall.

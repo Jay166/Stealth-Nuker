@@ -1,4 +1,4 @@
-# Stealth Nuker v1.1.3
+# Stealth Nuker v1.1.4
 
 Stealth Nuker is a python-based nuke script for discord.py. However, this nuker has a trick up its sleeve!
 
@@ -62,9 +62,11 @@ Features:
 **The Stealth Nuker for discord has many features, in the form of its various *cogs*:**
 - In moderation, you can find the following features:
   - **clear <1-1000>:** The clear command is a command used to clear the last 1-1000 messages.
-  - **kick:** The kick command is a command used to kick a user.
-  - **ban:** The ban command is a command used to ban a user.
-  - **unban** The unban command is a command used to unban a user.
+  - **kick:** The kick command is a command used to kick a member.
+  - **ban:** The ban command is a command used to ban a member.
+  - **unban:** The unban command is a command used to unban a member.
+  - **mute:** The mute command is a command used to a mute a member.
+  - **unmute:** The unmute command is a command used to unmute a member.
 
 - In anti-raid, you can find the following features:
   - **db_add_member:** Pretends to add a user to a list of raiders in a database.
