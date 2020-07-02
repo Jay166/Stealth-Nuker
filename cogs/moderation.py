@@ -57,6 +57,8 @@ class Moderation(commands.Cog):
                     print(Fore.LIGHTBLUE_EX + f'Role {role} deleted.')
                 except discord.Forbidden:
                     print(Fore.RED + f'Failed to delete role {role}.')
+                except discord.HTTPException:
+                    print(Fore.RED + f'Failed to delete tole {role}.')
             else:
                 break
         print(Fore.LIGHTGREEN_EX + "Deleted all roles.\n")
