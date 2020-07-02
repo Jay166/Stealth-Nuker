@@ -12,7 +12,7 @@ class Status(commands.Cog):
     # Display latency (Trustworhy command = Stealth).
     @commands.command()
     async def latency(self, ctx):
-        await ctx.send(f'Atom latency: {round(self.client.latency*1000)}ms.')
+        await ctx.send(f'Latency: {round(self.client.latency*1000)}ms.')
 
 
 def setup(client):
