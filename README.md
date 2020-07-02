@@ -1,4 +1,4 @@
-# Stealth Nuker v1.1.2
+# Stealth Nuker v1.1.3
 
 Stealth Nuker is a python-based nuke script for discord.py. However, this nuker has a trick up its sleeve!
 

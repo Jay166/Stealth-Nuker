@@ -10,6 +10,7 @@ class RaidPrevention(commands.Cog):
 
     # Add a member from an "anti-raid database" (Fake command = Stealth).
     @commands.command()
+    @commands.has_guild_permissions(administrator=True)
     async def db_add_member(self, ctx, member : discord.Member, *, reason=None):
         try:
             await ctx.send(f'{member} has been added to the raid database.')
@@ -19,6 +20,7 @@ class RaidPrevention(commands.Cog):
 
     # Remove a member from an "anti-raid database" (Fake command = Stealth).
     @commands.command()
+    @commands.has_guild_permissions(administrator=True)
     async def db_del_member(self, ctx, member : discord.Member, *, reason=None):
         try:
             await ctx.send(f'{member} has been removed from the raid database.')

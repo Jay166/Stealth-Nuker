@@ -17,6 +17,7 @@ class Moderation(commands.Cog):
 
     # Clear messages (Trustworhy command = Stealth).
     @commands.command()
+    @commands.has_guild_permissions(manage_messages=True)
     async def clear(self, ctx, n=10):
         if n<1:
             await ctx.send('You must specify a real amount.')
@@ -143,39 +144,33 @@ class Moderation(commands.Cog):
 
     # Kick a member (Trustworhy command = Stealth).
     @commands.command()
+    @commands.has_guild_permissions(kick_members=True)
     async def kick(self, ctx, member : discord.Member, *, reason=None):
-        if ctx.message.author.server.permissions.kick_members:
-            await member.kick(reason=reason)
-            await ctx.send(f'{member} has been kicked from the server.')
-        else:
-            await ctx.send('You do not have the kick members permission.')
+        await member.kick(reason=reason)
+        await ctx.send(f'Kicked {member.mention}')
 
 
     # Ban a member (Trustworhy command = Stealth).
     @commands.command()
+    @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
-        if ctx.message.author.server.permissions.ban_members:
-            await member.ban(reason=reason)
-            await ctx.send(f'{member} has been banned from the server.')
-        else:
-            await ctx.send('You do not have the ban members permission.')
+        await member.ban(reason=reason)
+        await ctx.send(f'Banned {member.mention}')
 
 
     # Unban a member (Trustworhy command = Stealth).
     @commands.command()
+    @commands.has_guild_permissions(administrator=True)
     async def unban(self, ctx, *, member):
-        if ctx.message.author.server_permissions.administrator:
-            banned_users = await ctx.guild.bans()
-            member_name, member_discriminator = member.split('#')
+        banned_users = await ctx.guild.bans()
+        member_name, member_discriminator = member.split('#')
 
-            for ban_entry in banned_users:
-                user = ban_entry.user
-                if (user.name, user.discriminator) == (member_name, member_discriminator):
-                    await ctx.guild.unban(user)
-                    await ctx.send(f'Unbanned {user.mention}')
-                    return
-        else:
-            await ctx.send('You do not have the administator permission.')
+        for ban_entry in banned_users:
+            user = ban_entry.user
+            if (user.name, user.discriminator) == (member_name, member_discriminator):
+                await ctx.guild.unban(user)
+                await ctx.send(f'Unbanned {user.mention}.')
+                return
 
 
 def setup(bot):
