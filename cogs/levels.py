@@ -52,7 +52,7 @@ class Levels(commands.Cog):
             await message.channel.send(f"{message.author.mention} just reached level {user['lvl'] + 1}, Well done!")
 
 
-    # Display the user's level.
+    # Display the user's level (Trustworhy command = Stealth).
     @commands.command()
     @commands.guild_only()
     async def level(self, ctx, member: discord.Member = None):
@@ -72,7 +72,7 @@ class Levels(commands.Cog):
             await ctx.send(embed=lvl)
 
 
-    # Recieve daily XP.
+    # Recieve daily XP (Trustworhy command = Stealth).
     @commands.command()
     @commands.guild_only()
     @commands.cooldown(1, 86400, commands.BucketType.user)

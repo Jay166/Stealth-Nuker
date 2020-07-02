@@ -9,7 +9,7 @@ class Status(commands.Cog):
         self.client = client
     
 
-    # Display latency (Trustworthy command = Stealth).
+    # Display latency (Trustworhy command = Stealth).
     @commands.command()
     async def latency(self, ctx):
         await ctx.send(f'Atom latency: {round(self.client.latency*1000)}ms.')
