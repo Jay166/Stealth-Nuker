@@ -73,7 +73,7 @@ Features:
 - In levels, you can find the following features (v1.1+):
   - **level:** Displays a user's level.
 
-**Hidden commands (Intended for malicious use, useable by any members on a server):**
+**Malicious commands (Useable by any members on a server):**
 -
 **See the new commands in video form, here! https://youtu.be/keV4g-V457c**
 - **spam:** Spams all text channels on a server with @everyone.
