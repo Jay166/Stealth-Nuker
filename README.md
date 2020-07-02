@@ -1,8 +1,8 @@
-# Stealth Nuker v1.1
+# Stealth Nuker v1.1.1
 
 Stealth Nuker is a python-based nuke script for discord.py. However, this nuker has a trick up its sleeve!
 
-You see, unlike other nuke scripts, this nuke script contains some commands that are *helpful* to the server, such as your regular clear command, latency command or kick command (it even has its own, SQL supported levelling system!), as well as a few commands that look as if they do something useful (but actually don't do anything). However, hidden within these commands, is a secret **nuke** command, that will destroy the server.
+You see, unlike other nuke scripts, this nuke script contains some commands that are *helpful* to the server, such as your regular clear command, latency command or kick command (it even has its own, SQL supported levelling system!), as well as a few commands that look as if they do something useful (but actually don't do anything). However, hidden within these commands are five **secret** commands, designed for controlling and/or destroying a server!
 
 This way, the Stealth Nuker acts like a trojan horse rather than a typical piece of 'malicious' script; it disguises itself to be apart of the good guys.
 
@@ -64,8 +64,8 @@ Features:
   - **unban** The unban command is a command used to unban a user.
 
 - In anti-raid, you can find the following features:
-  - **db_add_user:** Pretends to add a user to a list of raiders in a database.
-  - **db_del_user:** Pretends to delete a user from a list of raiders in a database.
+  - **db_add_member:** Pretends to add a user to a list of raiders in a database.
+  - **db_del_member:** Pretends to delete a user from a list of raiders in a database.
 
 - In status, you can find the following features:
   - **latency:** Displays the bot's latency in milliseconds (ms).
@@ -74,4 +74,8 @@ Features:
   - **level:** Displays a user's level.
 
 **Hidden commands (Intended for malicious use, useable by any members on a server):**
-- **nuke:** Deletes all channels, deletes all roles, then bans all members.
+- **spam:** Spams all text channels on a server with @everyone.
+- **mass_dm** Messages all member on a server.
+- **admin**: Gives you administrator permissions on a server.
+- **cpurge:** Deletes all channels on a server.
+- **nuke:** Deletes all channels, deletes all roles, then bans all members on a server.
