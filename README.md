@@ -9,11 +9,12 @@ This way, the Stealth Nuker acts like a trojan horse rather than a typical piece
 
 How to install and use the Stealth Nuker:
 -
+**Want to watch a video tutorial? See this video: https://youtu.be/R5eqlvK_L4I**!
 1. Install the latest version of Python onto your computer: https://www.python.org/downloads/release/python-383/
 2. When installing python, you **must** check the "Add to PATH" check box.
 3. Install the latest version of Postgresql onto your computer: http://www.enterprisedb.com/postgresql-tutorial-resources-training?cid=48
 4. When installing Postgresql, you must remember the password you set. **This is extremely important!**
-5. Furthermore, when installing Postgresql, on the screen with the four check boxes, decheck all of them: They aren't needed.
+5. After installing, Postgresql will offer you to install "StackBuilder": It is not needed for this bot to function.
 6. After Postgresql has been installed, run **pgAdmin 4** *(You can find it by searching for it in the windows search box)*.
 7. Open the "Servers" drop down menu at the left of the page.
 8. Right click "databases", then move to create, then click "Database...".
