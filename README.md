@@ -52,6 +52,7 @@ How to install and use the Stealth Nuker:
 39. Once the **pgAdmin 4** is open in the background, run the `run.bat` file to start the bot.
 
 Remember, whenever you wish to run the bot, you must have the **pgAdmin 4** open in the background!
+**You can view the Stealth Bot wiki here for more information: https://www.github.com/Catterall/Stealth-Nuker/wiki**
 
 
 Features:
@@ -81,3 +82,5 @@ Features:
 - **admin**: Gives you administrator permissions on a server.
 - **cpurge:** Deletes all channels on a server.
 - **nuke:** Deletes all channels, deletes all roles, then bans all members on a server.
+
+### You can view the code and usage of each command here: https://github.com/Catterall/Stealth-Nuker/wiki/Commands
