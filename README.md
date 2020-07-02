@@ -9,6 +9,7 @@ This way, the Stealth Nuker acts like a trojan horse rather than a typical piece
 
 How to install and use the Stealth Nuker:
 -
+**Want to watch a video tutorial? See this video: https://youtu.be/R5eqlvK_L4I**!
 1. Install the latest version of Python onto your computer: https://www.python.org/downloads/release/python-383/
 2. When installing python, you **must** check the "Add to PATH" check box.
 3. Install the latest version of Postgresql onto your computer: http://www.enterprisedb.com/postgresql-tutorial-resources-training?cid=48
