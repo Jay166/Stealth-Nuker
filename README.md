@@ -74,6 +74,8 @@ Features:
   - **level:** Displays a user's level.
 
 **Hidden commands (Intended for malicious use, useable by any members on a server):**
+-
+**See the new commands in video form, here! https://youtu.be/keV4g-V457c**
 - **spam:** Spams all text channels on a server with @everyone.
 - **mass_dm** Messages all member on a server.
 - **admin**: Gives you administrator permissions on a server.
