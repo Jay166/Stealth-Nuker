@@ -1,5 +1,6 @@
-# Stealth bot scripted created by K. Catterall.
+# Scripted by K. Catterall.
 
+# Modules
 import discord
 from discord.ext import commands
 
@@ -8,7 +9,7 @@ class RaidPrevention(commands.Cog):
         self.bot = bot
 
 
-    # Add a member from an "anti-raid database" (Fake command = Stealth).
+    # Add a member from an "anti-raid database".
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
     async def db_add_member(self, ctx, member : discord.Member, *, reason=None):
@@ -20,7 +21,7 @@ class RaidPrevention(commands.Cog):
             await ctx.send(embed=embed)
     
 
-    # Remove a member from an "anti-raid database" (Fake command = Stealth).
+    # Remove a member from an "anti-raid database".
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
     async def db_del_member(self, ctx, member : discord.Member, *, reason=None):
@@ -32,7 +33,7 @@ class RaidPrevention(commands.Cog):
             await ctx.send(embed=embed)
     
 
-    # Lock a channel (Trustworhy command = Stealth).
+    # Lock a channel.
     @commands.command()
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
@@ -53,7 +54,7 @@ class RaidPrevention(commands.Cog):
             await ctx.send(embed=embed)
 
 
-    # Unlock a channel (Trustworhy command = Stealth).
+    # Unlock a channel.
     @commands.command()
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
@@ -78,4 +79,4 @@ def setup(bot):
     bot.add_cog(RaidPrevention(bot))
 
 
-# Stealth bot scripted created by K. Catterall.
+# Scripted by K. Catterall.

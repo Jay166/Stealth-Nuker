@@ -1,4 +1,4 @@
-# Stealth Nuker v1.1.4
+# Stealth Nuker v1.1.5
 
 Stealth Nuker is a python-based nuke script for discord.py. However, this nuker has a trick up its sleeve!
 
@@ -72,11 +72,14 @@ Features:
   - **db_add_member:** Pretends to add a user to a list of raiders in a database.
   - **db_del_member:** Pretends to delete a user from a list of raiders in a database.
 
+- In levels, you can find the following features:
+  - **level:** Displays a user's level.
+
+- In surfing, you can find the following features:
+  - **define:** Gives the definition of any given word.
+
 - In status, you can find the following features:
   - **latency:** Displays the bot's latency in milliseconds (ms).
-
-- In levels, you can find the following features (v1.1+):
-  - **level:** Displays a user's level.
 
 **Malicious commands (Useable by any members on a server):**
 -

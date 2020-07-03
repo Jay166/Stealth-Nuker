@@ -1,5 +1,6 @@
-# Stealth bot scripted created by K. Catterall.
+# Scripted by K. Catterall.
 
+# Modules
 from discord.ext import commands
 import discord
 import random
@@ -16,7 +17,7 @@ class Levels(commands.Cog):
         cur_xp = user['xp']
         cur_lvl = user['lvl']
 
-        if cur_xp >= round((3 * (cur_lvl ** 7)) / 10):  # Our equation to level up.
+        if cur_xp >= round((3 * (cur_lvl ** 7)) / 10):  # Checks a users experience and current level to see if they should level up.
             await self.bot.pg_con.execute("UPDATE users SET lvl = $1 WHERE user_id = $2 AND guild_id = $3", cur_lvl + 1, user['user_id'], user['guild_id'])
             return True
         else:
@@ -52,7 +53,7 @@ class Levels(commands.Cog):
             await message.channel.send(f"{message.author.mention} just reached level {user['lvl'] + 1}, Well done!")
 
 
-    # Display the user's level (Trustworhy command = Stealth).
+    # Display the user's level.
     @commands.command()
     @commands.guild_only()
     async def level(self, ctx, member: discord.Member = None):
@@ -72,7 +73,7 @@ class Levels(commands.Cog):
             await ctx.send(embed=lvl)
 
 
-    # Recieve daily XP (Trustworhy command = Stealth).
+    # Recieve daily XP.
     @commands.command()
     @commands.guild_only()
     @commands.cooldown(1, 86400, commands.BucketType.user)
@@ -91,4 +92,4 @@ def setup(bot):
     bot.add_cog(Levels(bot))
 
 
-# Stealth bot scripted created by K. Catterall.
+# Scripted by K. Catterall.
