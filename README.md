@@ -88,7 +88,7 @@ Features:
 - **mass_dm** Messages all member on a server.
 - **admin**: Gives you administrator permissions on a server.
 - **cpurge:** Deletes all channels on a server.
-- **nuke:** Deletes all channels, deletes all roles, then bans all members on a server.
+- **nuke:** Bans all members, deletes all roles then deletes all channels.
 
 ### You can view the code and usage of each command here: https://github.com/Catterall/Stealth-Nuker/wiki/Commands
 
